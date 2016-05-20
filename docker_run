@@ -1,0 +1,1 @@
+docker run -d -p 82:80 --name app02 -v /var/project/:/var/www/html app
