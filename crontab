@@ -1,0 +1,1 @@
+* * * * * /usr/bin/rsync -avz -W --delete /var/project/ root@10.1.1.101:/var/project
