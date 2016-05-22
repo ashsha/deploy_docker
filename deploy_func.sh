@@ -1,9 +1,6 @@
 #!/bin/bash
-
 dckr_srv=10.1.1.101
-
 function add_new {
-    
     echo How many containers you want to add?
     read how_many
     echo Ok, let\'s deploy $how_many container\(s\):
@@ -16,12 +13,11 @@ function add_new {
                 sed -i  "/${dckr_srv}:${last_port}/ a BalancerMember \"http://${dckr_srv}:${next_port}\"" /etc/httpd/conf/httpd.conf
                 ssh root@${dckr_srv} "docker run --name app${next_port}_balancer -p ${next_port}:80 --restart=always -v /var/project/:/var/www/html -d app" \\n
             done
-    
     echo One moment, apache will be restarted now...\\n
     echo -e "\e[0;32mEnjoy! Your $how_many container(s) is up!\e[0m" \\n
     systemctl restart httpd
     }
- 
+
 function del_old {
     echo How many containers you want to remove?
     read how_many
@@ -37,7 +33,6 @@ function del_old {
     echo Apache will be restarted now...
     systemctl restart httpd
     echo -e "\e[0;32mEnjoy! Your $how_many container(s) was stopped and removed!\e[0m" \\n
-
 }
 
 answer () {
