@@ -11,7 +11,7 @@ function add_new {
                 next_port=$((last_port+1));
                 echo $next_port will be use for next balancer member...
                 sed -i  "/${dckr_srv}:${last_port}/ a BalancerMember \"http://${dckr_srv}:${next_port}\"" /etc/httpd/conf/httpd.conf
-                ssh root@${dckr_srv} "docker run --name app${next_port}_balancer -p ${next_port}:80 --restart=always -v /var/project/:/var/www/html -d app" \\n
+                ssh root@${dckr_srv} "docker run --name app${next_port}_balancer -p ${next_port}:80 --restart=always -v /var/project/:/var/www/html -d app"
             done
     echo One moment, apache will be restarted now...\\n
     echo -e "\e[0;32mEnjoy! Your $how_many container(s) is up!\e[0m" \\n
@@ -28,7 +28,7 @@ function del_old {
                 echo Last used port for container in httpd.conf is: $last_port;
                 echo Container on port $last_port will be remove.
                 sed -i "/${dckr_srv}:${last_port}/d" /etc/httpd/conf/httpd.conf 
-                ssh root@${dckr_srv} "docker stop app${last_port}_balancer && docker rm app${last_port}_balancer >/dev/null 2>&1" \\n
+                ssh root@${dckr_srv} "docker stop app${last_port}_balancer && docker rm app${last_port}_balancer >/dev/null 2>&1"
             done
     echo Apache will be restarted now...
     systemctl restart httpd
